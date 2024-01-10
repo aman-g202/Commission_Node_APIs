@@ -184,8 +184,8 @@ sequelize
   .then((result) => {
     console.log("Connected To Database");
     // const server = app.listen('3000', 'localhost');
-    const server = app.listen("3002", "localhost"); // test
-    // const server = app.listen('3006', 'localhost'); // live
+    // const server = app.listen("3002", "localhost"); // test
+    const server = app.listen("3006", "localhost"); // live
     if (server) {
       console.log("Server started!");
     }
