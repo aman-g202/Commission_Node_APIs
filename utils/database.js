@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const Sequelize = require("sequelize");
 // pass: Technomize@pma24
 // const sequelize = new Sequelize('csd_db', 'root', '', {
 // const sequelize = new Sequelize('csd_db', 'root', 'Technomize@pma24', {
