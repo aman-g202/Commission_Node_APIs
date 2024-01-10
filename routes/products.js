@@ -45,7 +45,7 @@ router.post(
 );
 
 router.post(
-  "v2/bcproduct",
+  "/v2/bcproduct",
   isAuth,
   [
     body("name")
@@ -92,7 +92,7 @@ router.delete(
 );
 
 router.delete(
-  "v2/bcproduct/:bcProductId",
+  "/v2/bcproduct/:bcProductId",
   isAuth,
   [
     param("bcProductId")
@@ -177,7 +177,7 @@ router.delete(
 
 router.get("/bcproduct", isAuth, bcProductController.fetchAllBcProducts);
 
-router.get("v2/bcproduct", isAuth, bcProductV2Controller.fetchAllBcProducts);
+router.get("/v2/bcproduct", isAuth, bcProductV2Controller.fetchAllBcProducts);
 
 router.get("/bfproduct", isAuth, bfProductController.fetchAllBfProducts);
 
