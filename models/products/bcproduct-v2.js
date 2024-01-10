@@ -41,4 +41,4 @@ const BcProductV2 = sequelize.define(
   }
 );
 
-module.exports = BcProduct;
+module.exports = BcProductV2;
