@@ -208,8 +208,8 @@ exports.uploadExcel = (req, res, next) => {
               agentIdFK: item["Agent Id"],
               totalTransactionCount: item["Total Txn Count"],
               totalTransactionAmount: item["Total Txn Amount"],
-              totalTransactionAmount: item["Total Txn Amount"],
               subTotalBCCommission: item["Sub-Total BC-Commission"],
+              totalCommisionOnTotalTxn: item["Total Commision on Total Txn"],
               // falseTransactionCommissionDeduced:
               //   item[
               //     "Commission Deducted for false Transactions (Round-Tripping)"

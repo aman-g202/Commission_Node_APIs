@@ -31,6 +31,10 @@ const BcCommissionReportV2 = sequelize.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
+    totalCommisionOnTotalTxn: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
     subTotalBCCommission: {
       type: Sequelize.STRING,
       allowNull: false,
