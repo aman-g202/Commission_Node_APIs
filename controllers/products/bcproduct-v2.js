@@ -10,9 +10,9 @@ const config = require("../../config");
 
 const BcProductV2 = require("../../models/products/bcproduct-v2");
 const Agent = require("../../models/users/agent");
-const BcCommission = require("../../models/products/bccommision");
-const BcCommissionRow = require("../../models/products/bccommissionrow");
-const BcCommissionReport = require("../../models/products/bccommissionreport");
+const BcCommissionV2 = require("../../models/products/bccommision-v2");
+const BcCommissionRowV2 = require("../../models/products/bccommissionrow-v2");
+const BcCommissionReportV2 = require("../../models/products/bccommissionreport-v2");
 
 exports.createBcProduct = (req, res, next) => {
   Utils.checkInputError(req);
@@ -195,7 +195,7 @@ exports.uploadExcel = (req, res, next) => {
       parsedData = XLSX.utils.sheet_to_json(ws);
       /* Setuped transactions */
       return sequelize.transaction((t) => {
-        return BcCommission.create(
+        return BcCommissionV2.create(
           { month, createdAt, createdBy: req.userId },
           { transaction: t }
         ).then((result) => {
@@ -208,17 +208,18 @@ exports.uploadExcel = (req, res, next) => {
               agentIdFK: item["Agent Id"],
               totalTransactionCount: item["Total Txn Count"],
               totalTransactionAmount: item["Total Txn Amount"],
+              totalTransactionAmount: item["Total Txn Amount"],
               subTotalBCCommission: item["Sub-Total BC-Commission"],
-              falseTransactionCommissionDeduced:
-                item[
-                  "Commission Deducted for false Transactions (Round-Tripping)"
-                ],
-              totalEligibleBCCommission: item["Total Eligible BC-Commission"],
+              // falseTransactionCommissionDeduced:
+              //   item[
+              //     "Commission Deducted for false Transactions (Round-Tripping)"
+              //   ],
+              // totalEligibleBCCommission: item["Total Eligible BC-Commission"],
               eligibleCommissionOfBC: item["eligibel Commission of BC"],
             };
 
             /* Inserted each row in to the bcCommissionReport table */
-            BcCommissionReport.create(bcCommissionReportData, {
+            BcCommissionReportV2.create(bcCommissionReportData, {
               transaction: t,
             })
               .then((result) => {
@@ -235,7 +236,9 @@ exports.uploadExcel = (req, res, next) => {
                     qty: item[prodsInfo[i].dataValues.col1],
                   });
                 }
-                return BcCommissionRow.bulkCreate(rowData, { transaction: t });
+                return BcCommissionRowV2.bulkCreate(rowData, {
+                  transaction: t,
+                });
               })
               .then((result) => {
                 cb();
@@ -285,12 +288,12 @@ exports.fetchBcCommisions = (req, res, next) => {
     where: {},
     include: [
       {
-        model: BcCommissionReport,
+        model: BcCommissionReportV2,
         required: true,
         where: {},
         include: [
           {
-            model: BcCommissionRow,
+            model: BcCommissionRowV2,
             required: true,
           },
           {
@@ -324,7 +327,7 @@ exports.fetchBcCommisions = (req, res, next) => {
     };
   }
 
-  BcCommission.findAll(searchQuery)
+  BcCommissionV2.findAll(searchQuery)
     .then((result) => {
       Utils.sendResponse(res, 200, result);
     })
