@@ -155,7 +155,7 @@ exports.uploadExcel = (req, res, next) => {
       let temp;
 
       /* fetched all products coloumn info of 0th row from sheet  */
-      for (i = 5; i <= range.e.c - 6; i++) {
+      for (i = 5; i <= range.e.c - 5; i++) {
         cell = ws[XLSX.utils.encode_cell({ c: i, r: 0 })];
         fetchedProductNamesFromExcel.push(cell);
       }
