@@ -35,14 +35,6 @@ const BcCommissionReportV2 = sequelize.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
-    falseTransactionCommissionDeduced: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    totalEligibleBCCommission: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
     eligibleCommissionOfBC: {
       type: Sequelize.STRING,
       allowNull: false,
