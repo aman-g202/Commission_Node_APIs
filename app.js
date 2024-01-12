@@ -30,6 +30,10 @@ const BcCommission = require("./models/products/bccommision");
 const BcCommissionReport = require("./models/products/bccommissionreport");
 const BcCommissionRow = require("./models/products/bccommissionrow");
 
+const BcCommissionV2 = require("./models/products/bccommision-v2");
+const BcCommissionReportV2 = require("./models/products/bccommissionreport-v2");
+const BcCommissionRowV2 = require("./models/products/bccommissionrow-v2");
+
 const app = express();
 
 const fileStorage = multer.diskStorage({
@@ -171,11 +175,23 @@ BcCommission.hasMany(BcCommissionReport, {
   foreignKey: "bcCommissionIdFK",
 });
 
+BcCommissionV2.hasMany(BcCommissionReportV2, {
+  foreignKey: "bcCommissionIdFK",
+});
+
 BcCommissionReport.hasMany(BcCommissionRow, {
   foreignKey: "reportIdFK",
 });
 
+BcCommissionReportV2.hasMany(BcCommissionRowV2, {
+  foreignKey: "reportIdFK",
+});
+
 BcCommissionReport.belongsTo(Agent, {
+  foreignKey: "agentIdFK",
+});
+
+BcCommissionReportV2.belongsTo(Agent, {
   foreignKey: "agentIdFK",
 });
 

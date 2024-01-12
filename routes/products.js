@@ -187,6 +187,12 @@ router.post(
   [body("month").not().isEmpty().withMessage("month field is not provided")],
   bcProductController.uploadExcel
 );
+router.post(
+  "/v2/bc/upload",
+  isAuth,
+  [body("month").not().isEmpty().withMessage("month field is not provided")],
+  bcProductV2Controller.uploadExcel
+);
 
 router.post(
   "/bfcommission",
@@ -217,6 +223,23 @@ router.get(
       .withMessage("agentId must be integer only"),
   ],
   bcProductController.fetchBcCommisions
+);
+
+router.get(
+  "/v2/bccommissions",
+  isAuth,
+  [
+    query("agentId")
+      .if((value, { req }) => {
+        if (value || typeof value === "string") {
+          return true;
+        }
+        return false;
+      })
+      .isInt()
+      .withMessage("agentId must be integer only"),
+  ],
+  bcProductV2Controller.fetchBcCommisions
 );
 
 router.get(
